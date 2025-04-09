@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Digital Heroes Store</title>
+  <style>
+    :root {
+      --primary: #5c67f2;
+      --secondary: #1a1c2c;
+      --accent: #00c9a7;
+      --text: #ffffff;
+      --muted: #cccccc;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--secondary);
+      color: var(--text);
+    }
+
+    /* Header */
+    header {
+      background-color: var(--primary);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: var(--text);
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 1.5rem;
+      margin: 0;
+      padding: 0;
+      position: relative;
+    }
+
+    nav li {
+      position: relative;
+    }
+
+    nav a {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 500;
+      padding: 0.5rem;
+    }
+
+    nav li:hover > ul {
+      display: block;
+    }
+
+    nav li ul {
+      display: none;
+      position: absolute;
+      top: 2.5rem;
+      left: 0;
+      background: #333;
+      padding: 0.5rem 0;
+      border-radius: 5px;
+      min-width: 150px;
+    }
+
+    nav li ul li {
+      padding: 0.5rem 1rem;
+    }
+
+    nav li ul li a {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    nav li ul li a:hover {
+      color: var(--accent);
+    }
+
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      text-shadow: 0 0 8px rgba(255, 255, 255, 0.758);
+      padding: 4rem 2rem;
+      background: linear-gradient(135deg, #5c67f2, #00c9a7);
+      color: #fff;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      font-size: 1.25rem;
+      margin-bottom: 2rem;
+    }
+
+    .btn {
+      background-color: var(--secondary);
+      color: var(--text);
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 30px;
+      font-weight: bold;
+      text-decoration: none;
+      transition: 0.3s ease;
+      margin: 0 10px;
+    }
+
+    .btn:hover {
+      background-color: var(--accent);
+      color: #000;
+    }
+
+    /* Product Section */
+    .products {
+      padding: 3rem 2rem;
+      background-color: #12131a;
+    }
+
+    .products h2 {
+      text-align: center;
+      margin-bottom: 2rem;
+      font-size: 2rem;
+      text-shadow: 0 0 8px rgba(255, 255, 255, 0.758);
+    }
+
+    .product-container {
+      display: flex;
+      gap: 20px;
+      overflow: hidden;
+      white-space: nowrap;
+      position: relative;
+    }
+
+    .product-card {
+      display: inline-block;
+      background-color: #202337;
+      color: var(--text);
+      width: 250px;
+      flex-shrink: 0;
+      border-radius: 12px;
+      padding: 1rem;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      animation: scroll 20s linear infinite;
+    }
+
+    .product-container:hover .product-card {
+      animation-play-state: paused;
+    }
+
+    .product-card img {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 1rem;
+    }
+
+    .product-card h3 {
+      margin: 0.5rem 0;
+    }
+
+    .product-card p {
+      font-size: 0.9rem;
+      white-space: normal;
+      margin: 0.5rem 0;
+    }
+
+    .product-card span {
+      font-weight: bold;
+      color: var(--accent);
+    }
+
+    @keyframes scroll {
+      0% {
+        transform: translateX(100%);
+      }
+      100% {
+        transform: translateX(-100%);
+      }
+    }
+
+    /* Footer */
+    footer {
+      background-color: #101114;
+      padding: 3rem 2rem;
+      color: var(--muted);
+    }
+
+    footer h4 {
+      color: var(--text);
+      margin-bottom: 0.75rem;
+    }
+
+    footer ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    footer ul li {
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 2rem;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid #333;
+      margin-top: 2rem;
+      padding-top: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 1rem;
+      font-size: 0.9rem;
+    }
+
+    .footer-bottom a {
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    .footer-bottom a:hover {
+      color: var(--accent);
+    }
+ 
+
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.4);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+    }
+
+    .modal {
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      width: 300px;
+      text-align: center;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .modal h2 {
+      margin-bottom: 20px;
+    }
+
+    .modal input {
+      width: 100%;
+      margin: 10px 0;
+      padding: 10px;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    .modal button {
+      width: 100%;
+      padding: 10px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .modal button:hover {
+      background-color: #0056b3;
+    }
+
+    .switch-link {
+      margin-top: 15px;
+      color: #007bff;
+      cursor: pointer;
+      font-size: 0.9rem;
+      text-decoration: underline;
+    }
+
+    #profileCircle {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: #007bff;
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      display: none;
+      z-index: 20;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    @media screen and (max-width: 768px) {
+      body {
+        overflow-x: hidden;
+      }
+
+      header, .hero, .products, footer {
+        padding: 1rem;
+      }
+
+      .hero h1 {
+        font-size: 1rem;
+      }
+
+      .hero p {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="logo">DigitalHeroes</div>
+    <nav>
+      <ul>
+        <li>
+          <a href="#">Home</a>
+          <ul>
+            <li><a href="#">Features</a></li>
+            <li><a href="#">Updates</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="#">Shop</a>
+          <ul>
+            <li><a href="#">New Arrivals</a></li>
+            <li><a href="#">Best Sellers</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="#">Collections</a>
+          <ul>
+            <li><a href="#">Tech</a></li>
+            <li><a href="#">Lifestyle</a></li>
+          </ul>
+        </li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>Dream big, build fast, and grow far on Shopify.</h1>
+    <p>Discover innovative products designed for modern living.</p>
+    <a href="#shop" class="btn">Explore Products</a>
+    <button id="signInButton" onclick="showModal()" class="btn">Sign In</button>  </section>
+
+<!-- Products -->
+<section class="products" id="shop">
+  <h2>Our Products</h2>
+  <div class="product-container">
+    <div class="product-card">
+      <img src="https://placehold.co/250x250/5c67f2/ffffff?text=Smart+Journal" alt="Smart Journal">
+      <h3>Smart Journal</h3>
+      <p>AI-integrated daily planner for better productivity and habit tracking across goals.</p>
+      <span>$24.99</span>
+    </div>
+
+    <div class="product-card">
+      <img src="https://placehold.co/250x250/5c67f2/ffffff?text=Eco+Bottle" alt="Eco Bottle">
+      <h3>Eco Bottle</h3>
+      <p>Reusable bottle made with sustainable bamboo-based materials.</p>
+      <span>$18.50</span>
+    </div>
+
+    <div class="product-card">
+      <img src="https://placehold.co/250x250/5c67f2/ffffff?text=Zen+Lamp" alt="Zen Lamp">
+      <h3>Zen Lamp</h3>
+      <p>Minimalist lamp for peaceful vibes and cozy warm-lit nights.</p>
+      <span>$39.00</span>
+    </div>
+
+    <!-- Add more product-card divs here as needed -->
+        <div class="product-card">
+          <img src="https://placehold.co/250x250/5c67f2/ffffff?text=Smart+Journal" alt="Smart Journal">
+          <h3>Smart Journal</h3>
+          <p>AI-integrated daily planner for better productivity and habit tracking across goals.</p>
+          <span>$24.99</span>
+        </div>
+    
+        <div class="product-card">
+          <img src="https://placehold.co/250x250/5c67f2/ffffff?text=Eco+Bottle" alt="Eco Bottle">
+          <h3>Eco Bottle</h3>
+          <p>Reusable bottle made with sustainable bamboo-based materials.</p>
+          <span>$18.50</span>
+        </div>
+    
+        <div class="product-card">
+          <img src="https://placehold.co/250x250/5c67f2/ffffff?text=Zen+Lamp" alt="Zen Lamp">
+          <h3>Zen Lamp</h3>
+          <p>Minimalist lamp for peaceful vibes and cozy warm-lit nights.</p>
+          <span>$39.00</span>
+        </div>
+    
+        <!-- New Products Below -->
+    
+        <div class="product-card">
+          <img src="https://placehold.co/250x250/5c67f2/ffffff?text=Headphone" alt="Headphone">
+          <h3>Wireless Headphones</h3>
+          <p>Noise-cancelling over-ear headphones with crystal clear audio and deep bass.</p>
+          <span>$89.99</span>
+        </div>
+    
+        <div class="product-card">
+          <img src="https://placehold.co/250x250/5c67f2/ffffff?text=Smart+Watch" alt="Smart Watch">
+          <h3>Smart Watch</h3>
+          <p>Track fitness, receive notifications, and personalize your watch face easily.</p>
+          <span>$119.00</span>
+        </div>
+    
+        <div class="product-card">
+          <img src="https://placehold.co/250x250/5c67f2/ffffff?text=VR+Headset" alt="VR Headset">
+          <h3>VR Headset</h3>
+          <p>Immersive virtual reality headset for gaming, exploration, and education.</p>
+          <span>$249.99</span>
+        </div>
+    
+        <div class="product-card">
+          <img src="https://placehold.co/250x250/5c67f2/ffffff?text=Speaker" alt="Bluetooth Speaker">
+          <h3>Bluetooth Speaker</h3>
+          <p>Portable waterproof speaker with powerful bass and 12-hour battery life.</p>
+          <span>$45.00</span>
+        </div>
+     
+  </div>
+</section>
+
+  <!-- Footer -->
+  <!-- Footer -->
+<footer style="background-color: #1c1c1c; padding: 3rem 2rem; color: white;">
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 2rem;">
+    <div>
+      <h4>Shopify</h4>
+      <ul style="list-style: none; padding: 0;">
+        <li>About</li>
+        <li>Investors</li>
+        <li>Partners</li>
+        <li>Affiliates</li>
+        <li>Legal</li>
+        <li>Service status</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Support</h4>
+      <ul style="list-style: none; padding: 0;">
+        <li>Merchant Support</li>
+        <li>Help Center</li>
+        <li>Hire a Partner</li>
+        <li>Shopify Academy</li>
+        <li>Shopify Community</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Developers</h4>
+      <ul style="list-style: none; padding: 0;">
+        <li>Shopify.dev</li>
+        <li>API Documentation</li>
+        <li>Dev Degree</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Products</h4>
+      <ul style="list-style: none; padding: 0;">
+        <li>Shopify Plus</li>
+        <li>Linkpop</li>
+        <li>Shopify for Enterprise</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Global Impact</h4>
+      <ul style="list-style: none; padding: 0;">
+        <li>Sustainability</li>
+        <li>Build Black</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Solutions</h4>
+      <ul style="list-style: none; padding: 0;">
+        <li>Online Store Builder</li>
+        <li>Website Builder</li>
+        <li>Ecommerce Website</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Bottom Info -->
+  <div style="margin-top: 2rem; border-top: 1px solid #444; padding-top: 1rem; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem; font-size: 0.9rem;">
+    <div>India | English</div>
+    <div style="display: flex; flex-wrap: wrap; gap: 1.5rem;">
+      <a href="#" style="color: #ccc; text-decoration: none;">Terms of service</a>
+      <a href="#" style="color: #ccc; text-decoration: none;">Privacy policy</a>
+      <a href="#" style="color: #ccc; text-decoration: none;">Sitemap</a>
+      <a href="#" style="color: #ccc; text-decoration: none;">Privacy Choices</a>
+    </div>
+  </div>
+</footer>
+
+
+  <!-- Sign-In Modal -->
+  <div class="modal-overlay" id="modal">
+    <div class="modal" id="modalContent">
+      <!-- Sign In content will be injected via JS -->
+    </div>
+  </div>
+  
+  <!-- Profile Circle -->
+  <div id="profileCircle">
+
+  </div>
+  <script>
+   function showModal() {
+    document.getElementById('modal').style.display = 'flex';
+    showSignIn(); // Default to sign in card
+  }
+
+  function hideModal() {
+    document.getElementById('modal').style.display = 'none';
+  }
+
+  function showProfile() {
+    document.getElementById('profileCircle').style.display = 'block';
+  }
+
+  function showSignIn() {
+    const modal = document.getElementById('modalContent');
+    modal.innerHTML = `
+      <h2>Sign In</h2?
+      <input type="email" id="loginEmail" placeholder="Email" required />
+      <input type="password" id="loginPassword" placeholder="Password" required />
+      <button onclick="login()">Log In</button>
+      <div class="switch-link" onclick="showSignUp()">Don't have an account? Sign Up</div>
+    `;
+  }
+
+  function showSignUp() {
+    const modal = document.getElementById('modalContent');
+    modal.innerHTML = `
+      <h2>Sign Up</h2>
+      <input type="text" id="signupName" placeholder="Name" required />
+      <input type="email" id="signupEmail" placeholder="Email" required />
+      <input type="password" id="signupPassword" placeholder="Create Password" required />
+      <button onclick="register()">Register</button>
+      <div class="switch-link" onclick="showSignIn()">Already have an account? Sign In</div>
+    `;
+  }
+
+  function login() {
+    const email = document.getElementById('loginEmail').value;
+    const password = document.getElementById('loginPassword').value;
+    if (email && password) {
+      alert("Successfully logged in!");
+      hideModal();
+      showProfile();
+      document.getElementById('signInButton').style.display = 'none';
+
+    }
+  }
+
+  function register() {
+    const name = document.getElementById('signupName').value;
+    const email = document.getElementById('signupEmail').value;
+    const password = document.getElementById('signupPassword').value;
+    if (name && email && password) {
+      alert("Successfully signed up!");
+      hideModal();
+      showProfile();
+      document.getElementById('signInButton').style.display = 'none';
+
+    }
+  }
+  </script>
+</body>
+</html>
